@@ -1,6 +1,6 @@
 <%-- 
-    Document   : About
-    Created on : Apr 27, 2024, 6:26:06 PM
+    Document   : ContactUs
+    Created on : Apr 27, 2024, 6:36:48 PM
     Author     : Kavindu Piyumal
 --%>
 
@@ -10,10 +10,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="css/About.css">
-  </head>
-      
-
+          <link rel="stylesheet" href="ContactUs.css" /> 
+    </head>
     <body>
         <h1>Hello World!</h1>
     </body>
