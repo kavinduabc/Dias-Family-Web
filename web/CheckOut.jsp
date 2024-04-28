@@ -15,7 +15,7 @@
     <body>
         <div class="containar">
             <div class="title">
-                <h1><span class="tt">Shipping Details</span></h1>
+                <h1><span class="tt"> Details of Shipping</span></h1>
             </div>
             <div class="form_details">
                 <form action="CheckServlet" method="POST">
