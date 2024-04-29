@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Cart_Deliver
-    Created on : Apr 27, 2024, 6:34:17 PM
+    Document   : Home
+    Created on : Apr 27, 2024, 6:27:57 PM
     Author     : Kavindu Piyumal
 --%>
 
@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="css/Cart.css">
+        <link rel="stylesheet" href="css/Home.css">
     </head>
     <body>
         <h1>Hello World!</h1>
