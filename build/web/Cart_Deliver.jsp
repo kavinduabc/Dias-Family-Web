@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-          <link rel="stylesheet" href="Cart.css" /> 
+        <link rel="stylesheet" href="css/Cart.css">
     </head>
     <body>
         <h1>Hello World!</h1>
