@@ -10,9 +10,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-          <link rel="stylesheet" href="Login.css" /> 
+        <link rel="stylesheet" href="css/Login.css">
     </head>
     <body>
-        <script src="Login.js"></script>
+        <h1>Hello World!</h1>
+        <script src="js/Login.js"></script>
     </body>
 </html>
