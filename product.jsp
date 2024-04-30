@@ -21,7 +21,7 @@
 			conn = new databaseConn();
 	          conn.connect();
 			  String userId="1";
-	          int categoryId = 1;
+	          int categoryId = 2;
 	          int sellerId=-1;
 	          
 	          //fetching category items in category table
@@ -78,11 +78,9 @@
 		                  break;
 		            }
 	        	}
-	        	String imgSrc= "images/"+rs.getString("product_image");
 	        	%>
-	        	
-        		<div  onclick= "redirectToProductView('<%= productId %>','<%=isInCart %>')" class="item">
-	                <img src="<%=imgSrc%>" alt="<%=imgSrc%>">
+        		<div  onclick= "redirectToProductView('<%= productId %>','<%=isInCart %>','<%=categoryName %>')" class="item">
+	                <img src="images/<%=categoryName %>/<%=rs.getString("product_image") %>" alt="category_name">
 	                <h2><%= rs.getString("product_name") %></h2>
 	                <h4 class="price"> <%= String.format("%.2f", rs.getDouble("product_price")) %>/=</h4>
 	                <form action="addCart" method="get">
@@ -102,8 +100,8 @@
         </div>
     </div>
     <script>
-	    function redirectToProductView(productId, isInCart) {
-	        window.location.href = 'productView.jsp?productId=' + productId + '&isInCart=' + isInCart;
+	    function redirectToProductView(productId, isInCart , categoryName) {
+	        window.location.href = 'productView.jsp?productId=' + productId + '&isInCart=' + isInCart+'&categoryName='+categoryName;
     	}
 	    
 	    const search = () => {
