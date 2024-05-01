@@ -1,10 +1,71 @@
 /*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Apr 27, 2024, 7:04:55 PM
     Author     : Kavindu Piyumal
 */
+@media (max-width: 800px) {
+    .row {
+        flex-direction: column-reverse;
+    }
+    .col-25 {
+        margin-bottom: 20px;
+    }
+}
+.container{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
 
+#heading {
+    /* Cart heading */
+    text-align: center;
+
+    padding: 10px;
+    border-radius: 10px;
+    opacity: 0.7;
+}
+
+
+#cart-table-content {
+    margin-top: 50px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+table {
+    font-family: Arial, sans-serif;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+tr {
+    height: 45px;
+    margin-bottom: 70px;
+}
+
+.img-thumbnail {
+    width: 100px;
+    height: 100px;
+}
+
+.ml-2 {
+    font-size: 18px;
+    margin-left: 20px;
+    font-weight: bold; /* Add bold font weight to the item name */
+}
+
+small {
+    font-size: 14px;
+}
+
+th {
+    vertical-align: top;
+    /*text-align: center;*/
+    background-color: black;
+    color: yellow;
+    padding: 10px;
+}
+
+.table tbody td{
+    vertical-align: middle;
+}

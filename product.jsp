@@ -1,112 +1,133 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import = "productPackage.databaseConn"  %>
-<%@ page import="java.sql.ResultSet"%>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.io.*" %>
-<% ArrayList<Integer> pIds = new ArrayList<>();%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.util.List"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="productPackage.dbCon"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.io.*"%>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<% ArrayList<Integer> pIds = new ArrayList<Integer>();%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="product.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
 <title>Products</title>
 </head>
 <body>
 	<%
-		databaseConn conn = null;
-		try{
-			
-			conn = new databaseConn();
-	          conn.connect();
-			  String userId="1";
-	          int categoryId = 1;
-	          int sellerId=-1;
-	          
-	          //fetching category items in category table
-	          String categoryName = null;
-	          String queryCategory= "SELECT * FROM category WHERE category_id ="+categoryId;
-	          ResultSet resultCategory = conn.executeQuery(queryCategory);
-	          while(resultCategory.next()){
-	        	  categoryName=resultCategory.getString("category_name");
-	          }
-	          
-	%>
-	
+            dbCon conn = null;
+            try {
+            	
+                conn = new dbCon();
+                conn.connect();
+				
+                int sellerId=-1;
+                int userId = 3;
+            	int categoryId = 1;
+            	
+              //fetching category items in category table
+  	          String categoryName = null;
+  	          String queryCategory= "SELECT * FROM category WHERE category_id ="+categoryId;
+  	          ResultSet resultCategory = conn.executeQuery(queryCategory);
+  	          while(resultCategory.next()){
+  	        	  categoryName=resultCategory.getString("category_name");
+  	          }
+        %>
+
 	<div class="conntainer">
-        <div class="search-container">
+		<div class="search-container">
         	
 		    <h2 class="title"><%= categoryName %></h2>
 		    
 		    <div class="search">
-		    	<span class="material-symbols-outlined">search</span>
+		    	<span class="material-symbols-outlined"> search </span>
        			<input type="text" name="" id="find" placeholder="Search here...." onkeyup="search()">
        		</div>
 		</div>
-        <hr class="hr-category">
-        <div class="listproduct id="listproduct">
-	        <%
-        // Connect to database
-        
-      		//fetching all cart items related to the user
-          	String queryCart = "SELECT * FROM product JOIN cart ON product.product_id = cart.product_id WHERE cart.user_id = " + userId + " ORDER BY cart.cart_id DESC;";
-          	ResultSet resultcart = conn.executeQuery(queryCart);
-          	while (resultcart.next()) {
-	        	  int pId = resultcart.getInt("product_id");
-	        	  pIds.add(pId);
-	        }
+		<hr class="hr-category">
+		<div class="listproduct" id="categoryId">
+		
+		<%// Retrieve the cart product IDs and quantities from the database
+        String updatedProductIdsString = "";
+		List<Integer> updatedProductIdsList = new ArrayList<Integer>();
 
-          	
-          	
-	        // Fetching all products from database
-	        String sql= null;
-	        if(categoryId >= 0){
-	        	sql = "SELECT * FROM product WHERE category_id="+categoryId+";";
-	        }else{
-	        	sql = "SELECT * FROM product WHERE category_id="+sellerId+";";
-	        }
-	        ResultSet rs = conn.executeQuery(sql);
-	        while (rs.next()) {
-	          boolean isInCart = false;
-	          int productId = rs.getInt("product_id");
-	          
-	        	// Access the product IDs in the array
-	        	for (int id : pIds) {
-	        		if (productId == id) {
-		                  isInCart = true;
-		                  break;
-		            }
-	        	}
-	        	String imgSrc= "images/"+rs.getString("product_image");
-	        	%>
-	        	
-        		<div  onclick= "redirectToProductView('<%= productId %>','<%=isInCart %>')" class="item">
-	                <img src="<%=imgSrc%>" alt="<%=imgSrc%>">
-	                <h2><%= rs.getString("product_name") %></h2>
-	                <h4 class="price"> <%= String.format("%.2f", rs.getDouble("product_price")) %>/=</h4>
-	                <form action="addCart" method="get">
-		                <div class="footer-card">
-		                	<input type="hidden" name="userId" value="1"/>
-		                	<input type="hidden" name="productId" value="<%= rs.getInt("product_id") %>">
-		                	<input type="hidden" name="quantity" value="1">
-		                	<%if(!isInCart){ %>
-		                    	<button type="submit" class="cart-btn">Add to cart</button>
-		                    <%}else{ %>
-		                    	<button type="submit" class="added-cart-btn" disabled>Added</button>
-		                    <%} %>
-		                </div> 
-	                </form>
-	            </div>
-            <%} %>
-        </div>
-    </div>
-    <script>
-	    function redirectToProductView(productId, isInCart) {
-	        window.location.href = 'productView.jsp?productId=' + productId + '&isInCart=' + isInCart;
+		
+		    String cartProductsQuery = "SELECT product_id FROM cart_1 WHERE user_id = ?";
+		    PreparedStatement statement = conn.prepareStatement(cartProductsQuery);
+		    statement.setInt(1, userId);
+		    ResultSet resultSet = statement.executeQuery();
+		    if (resultSet.next()) {
+		        updatedProductIdsString = resultSet.getString("product_id");
+		    }
+		    
+		    // Split the string by commas and parse each substring as an integer
+		    String[] productIdStrings = updatedProductIdsString.split(",");
+		    for (String productIdString : productIdStrings) {
+		        try {
+		            int productId = Integer.parseInt(productIdString.trim());
+		            updatedProductIdsList.add(productId);
+		        } catch (NumberFormatException e) {
+		            // Handle parsing errors as needed
+		            e.printStackTrace();
+		        }
+		    }
+
+        	//Fetching all products from database
+			String sql= null;
+			if(categoryId >= 0){
+				sql = "SELECT * FROM product WHERE category_id="+categoryId+";";
+			}else{
+				sql = "SELECT * FROM product WHERE category_id="+sellerId+";";
+			}
+            ResultSet rs = conn.executeQuery(sql);
+            while (rs.next()) {
+	            boolean isInCart = false;
+	            int productId = rs.getInt("product_id");
+	
+	            // Check if the product is in the cart
+	            for (int id : updatedProductIdsList) {
+	                if (productId == id) {
+	                    isInCart = true;
+	                    break;
+	                }
+	            }
+	            String imgSrc= categoryName +"/"+rs.getString("product_image");
+                %>
+			<div
+				onclick="redirectToProductView('<%= productId%>', '<%= isInCart%>')"
+				class="item">
+				<img src="images/<%=imgSrc%>" alt="images/<%=imgSrc%>">
+				<h2><%= rs.getString("product_name")%></h2>
+				<h4 class="price">
+					<%= String.format("%.2f", rs.getDouble("product_price"))%>/=
+				</h4>
+				<form action="addCart" method="post">
+					<div class="card-footer">
+						<input type="hidden" name="userId" value="<%= userId%>" /> <input
+							type="hidden" name="productId"
+							value="<%= rs.getInt("product_id")%>"> <input
+							type="hidden" name="quantity" value="1">
+						<% if (!isInCart) { %>
+						<button type="submit" class="cart-btn">Add to cart</button>
+						<% } else { %>
+						<button type="submit" class="added-cart-btn" disabled>Added</button>
+						<% } %>
+					</div>
+				</form>
+			</div>
+		<% } %>
+		</div>
+	</div>
+	<script>
+	    function redirectToProductView(productId, isInCart , categoryName) {
+	        window.location.href = 'productView.jsp?productId=' + productId + '&isInCart=' + isInCart+'&categoryName='+categoryName;
     	}
 	    
-	    const search = () => {
+	    const search = (categoryId) => {
 	        const searchbox = document.getElementById('find').value.toUpperCase();
 	        const storeitems = document.getElementById('listproduct');
 	        const products = document.querySelectorAll('.item');
@@ -125,15 +146,13 @@
 	    }
 
 	</script>
-	<%
-        } catch (Exception e) {
-          // Handle database connection error
-          out.println(e.getMessage());
-        } finally {
-          if (conn != null) {
-            conn.close();
-          }
-        }
-      %>
+
+	<% } catch (Exception e) {
+                e.printStackTrace();
+       } finally {
+                if (conn != null) {
+                    conn.close();
+                }
+       }%>
 </body>
 </html>

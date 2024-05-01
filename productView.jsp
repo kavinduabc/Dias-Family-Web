@@ -34,7 +34,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-5 ">
                 <div class="product-box">
-                    <img src="images/<%= rs.getString("product_image") %>" class="product-image img-fluid" alt="Item Image">
+                    <img src="images/<%=categoryName %>/<%= rs.getString("product_image") %>" class="product-image img-fluid">
                 </div>
             </div>
             <!-- Item Details Column -->
