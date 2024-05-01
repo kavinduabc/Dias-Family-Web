@@ -20,7 +20,7 @@
 	        <%
 	        	String productId= request.getParameter("productId");
 	        	String isInCartString= request.getParameter("isInCart");
-	        	String categoryName= request.getParameter("categoryName");
+	        	String imgSrc= request.getParameter("imgSrc");
 	        	boolean isInCart = Boolean.parseBoolean(isInCartString);
 	        	databaseConn conn=new databaseConn();
 	        	conn.connect();
@@ -34,7 +34,7 @@
             <div class="col-md-2"></div>
             <div class="col-md-5 ">
                 <div class="product-box">
-                    <img src="images/<%=categoryName %>/<%= rs.getString("product_image") %>" class="product-image img-fluid">
+                    <img src="images/<%=imgSrc %>" class="product-image img-fluid">
                 </div>
             </div>
             <!-- Item Details Column -->

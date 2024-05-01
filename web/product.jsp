@@ -27,11 +27,11 @@
 				
                 int sellerId=-1;
                 int userId = 3;
-            	int categoryId = 1;
+            	int categoryId = Integer.parseInt(request.getParameter("categoryId"));
             	
               //fetching category items in category table
   	          String categoryName = null;
-  	          String queryCategory= "SELECT * FROM category WHERE category_id ="+categoryId;
+  	          String queryCategory= "SELECT * FROM category WHERE category_id ="+categoryId+";";	
   	          ResultSet resultCategory = conn.executeQuery(queryCategory);
   	          while(resultCategory.next()){
   	        	  categoryName=resultCategory.getString("category_name");
@@ -98,7 +98,7 @@
 	            String imgSrc= categoryName +"/"+rs.getString("product_image");
                 %>
 			<div
-				onclick="redirectToProductView('<%= productId%>', '<%= isInCart%>')"
+				onclick="redirectToProductView('<%= productId%>', '<%= isInCart%>', '<%=imgSrc %>')"
 				class="item">
 				<img src="images/<%=imgSrc%>" alt="images/<%=imgSrc%>">
 				<h2><%= rs.getString("product_name")%></h2>
@@ -123,8 +123,8 @@
 		</div>
 	</div>
 	<script>
-	    function redirectToProductView(productId, isInCart , categoryName) {
-	        window.location.href = 'productView.jsp?productId=' + productId + '&isInCart=' + isInCart+'&categoryName='+categoryName;
+	    function redirectToProductView(productId, isInCart , imgSrc) {
+	        window.location.href = 'productView.jsp?productId=' + productId + '&isInCart=' + isInCart+'&imgSrc='+imgSrc;
     	}
 	    
 	    const search = (categoryId) => {
