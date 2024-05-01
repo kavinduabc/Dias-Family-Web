@@ -1,18 +1,162 @@
 <%-- 
-    Document   : Cart_Deliver
-    Created on : Apr 27, 2024, 6:34:17 PM
-    Author     : Kavindu Piyumal
+    Document   : index
+    Created on : Apr 14, 2024, 6:42:33 AM
+    Author     : Dewmini
 --%>
 
+<%@page import="java.util.*"%>
+<%@page import="CartModel.*"%>
+<%@page import="cartServlets.*"%>
+<%@page import="java.sql.*"%>
+<%@page import="database_connection.dbCon"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link rel="stylesheet" href="css/Cart.css">
+        <title>shopping cart</title>
+        <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+
+        <!--customized CSS file-->
+        <link rel='stylesheet' href='cart.css'>
+        <style>
+        </style>
     </head>
     <body>
-        <h1>Hello World!</h1>
+
+        <div class="container">
+           
+            
+
+            <%  //retrieve user id frim the session
+                int userId = 2;
+                double totalPrice = 0.0;
+                double totalQuantity = 0.0;
+
+                //fetch cart item from database using productDAO class
+                cartDAO dao = new cartDAO(dbCon.connectToDB());
+                List<cart> cartlists = dao.getCartItemsByUserId(userId);
+
+                //create a list to add the subtotals
+                List<Double> subtotals = new ArrayList<Double>();
+
+                int length = cartlists.size();
+                //iterate over the cart items
+%>
+<div class="left-side">
+    
+            <div class="heading-box">
+                <h2 id="heading">your cart (<%=length%>)</h2>
+            </div>
+            <div class="d-flex py-3" id="cart-table-content" >                      
+
+                <table class="table table-light">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="text-align:center;">Item</th>
+                            <th scope="col">Unit Price</th>
+                            <th scope="col" style="text-align: left;">Quantity</th>
+                            <th scope="col">Total</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            for (cart item : cartlists) {
+                                // Calculate subtotal for each item
+                                double subtotal = item.getPrice() * item.getQuantity();
+                                totalPrice += subtotal;
+                                totalQuantity += item.getQuantity();
+                                subtotals.add(subtotal);
+                        %>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="images/<%= item.getImage()%>" alt="<%= item.getImage()%>" class="img-thumbnail">
+                                    <div class="ml-2">
+                                        <%= item.getName()%>
+                                        <br>
+                                        <small><%= item.getCategory()%></small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="text-align: left;"><%= String.format("%.2f", item.getPrice())%></td>
+                            <td>
+                                <form action="updateCartQty" method="post" class="form-inline">
+                                    <input type="hidden" name="productId" value="<%= item.getProductId()%>">
+                                    <div class="form-group d-flex justify-content-between">
+
+                                        <input type="hidden" name="userId" value="<%= userId%>">
+                                        <!--<input type="hidden" name="operation" value="">-->
+                                        <button type="submit" name="operation" value="+" class="btn btn-sm btn-incre">
+                                            <i class="fas fa-plus-square"></i>
+                                        </button>
+                                        <input type="text" name="quantity" class="form-control" style="width: 80px;" value="<%= item.getQuantity()%>" disabled>
+                                        <button type="submit" name="operation" value="-" class="btn btn-sm btn-decre">
+                                            <i class="fas fa-minus-square"></i>
+                                        </button>
+                                        
+                                    </div>
+                                </form>
+                            </td>
+                            <td style="text-align: left;"><%= String.format("%.2f", subtotal)%></td>
+                            <td>
+                                <form action="deleteProduct" method="post" class="form-inline">
+                                    <input type="hidden" name="productId" value="<%= item.getProductId()%>">
+                                    <div class="form-group">
+                                        <input type="hidden" name="userId" value="<%= userId%>">
+                                        <input type="hidden" name="quantity" value="<%= item.getQuantity()%>" >
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fas fa-trash"></i> </button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        <%}%>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+            <div class="right-side" >
+
+                <h3>
+                    total price : <%= String.format("%.2f", totalPrice)%>                               
+                </h3>
+
+                <h3>
+                    number of items : <%=length%>
+
+                </h3>
+                    <div class="d-flex justify-content-start">
+                        
+                    <!-- Button for checkout -->
+                  
+                        <button class="btn btn-primary" onclick="window.location.href='payment.jsp'">checkout</button>
+
+                    </div>
+                <%
+                    // convert subtotals to a string
+                    StringBuilder subtotalBuilder = new StringBuilder();
+                    for (int i = 0; i < subtotals.size(); i++) {
+                        subtotalBuilder.append(subtotals.get(i));
+                        if (i < subtotals.size() - 1) {
+                            subtotalBuilder.append(",");
+                        }
+                    }
+                    String subtotalString = subtotalBuilder.toString();
+                    dao.updateSubtotals(userId, subtotalString);
+                    dao.updateTotal(userId, totalPrice);
+                    dao.updateLength(userId, length);
+                %>
+
+            </div>
+        </div>
+        <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.js'>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" ></script>
     </body>
 </html>

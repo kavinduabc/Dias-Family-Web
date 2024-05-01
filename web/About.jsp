@@ -42,5 +42,9 @@
             <p>Address: 123 Main Street, City, Country</p>
         </div>
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2c748bb3c348d2da1d30a309cb63eecca3ca3439
     </body>
 </html>
