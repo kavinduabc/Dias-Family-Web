@@ -66,6 +66,27 @@
       </div>
      </div>
     </div>
+     
+
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        var messageSent = <%=request.getAttribute("messageSent")%>; 
+        
+        if (messageSent) {
+            swal({
+                title: "Thank You!",
+                text: "Feedback sent successfully!",
+                icon: "success",
+                button: "OK"
+            });
+        }
+    });
+</script>
+
+
 
     </body>
 </html>
