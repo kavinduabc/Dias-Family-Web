@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" rel="stylesheet">
 
+
         <!--customized CSS file-->
         <link rel='stylesheet' href='cart.css'>
         <style>
@@ -29,9 +30,7 @@
 
         <div class="container">
 
-
-
-            <%                            //retrieve user id frim the session
+            <%  //retrieve user id frim the session
                 int userId = 2;
                 double totalPrice = 0.0;
                 double totalQuantity = 0.0;
@@ -44,6 +43,7 @@
                 List<Double> subtotals = new ArrayList<Double>();
 
                 int length = cartlists.size();
+<
 
                 if (length == 0) {
             %>
@@ -130,7 +130,9 @@
 
                 </div>
             </div>
+
             <div class="right-side" >
+
                 <h3>
                     total price : <%= String.format("%.2f", totalPrice)%>                               
                 </h3>
@@ -139,11 +141,14 @@
                     number of items : <%=length%>
 
                 </h3>
-                <div class="d-flex justify-content-start">
+                    <div class="d-flex justify-content-start">
+                        
+                    <!-- Button for checkout -->
+                  
+                        <button class="btn btn-primary" onclick="window.location.href='payment.jsp'">checkout</button>
 
-                    <button class="btn btn-primary" onclick="window.location.href = 'payment.jsp'">checkout</button>
+                    </div>
 
-                </div>
                 <%
                         // convert subtotals to a string
                         StringBuilder subtotalBuilder = new StringBuilder();
