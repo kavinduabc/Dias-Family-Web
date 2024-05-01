@@ -25,9 +25,10 @@
                 conn = new dbCon();
                 conn.connect();
 				
-                int sellerId=-1;
+                
                 int userId = 3;
             	int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+            	int sellerId=Integer.parseInt(request.getParameter("sellerId"));
             	
               //fetching category items in category table
   	          String categoryName = null;
@@ -36,13 +37,23 @@
   	          while(resultCategory.next()){
   	        	  categoryName=resultCategory.getString("category_name");
   	          }
+  	          
+  	      	  //fetching seller items in  seller table
+  	          String sellerName = null;
+  	          String querySeller= "SELECT * FROM seller WHERE seller_id ="+sellerId+";";	
+  	          ResultSet resultSeller = conn.executeQuery(querySeller);
+  	          while(resultSeller.next()){
+  	        	  sellerName=resultSeller.getString("seller_name");
+  	          }
         %>
 
 	<div class="conntainer">
 		<div class="search-container">
-        	
-		    <h2 class="title"><%= categoryName %></h2>
-		    
+        	<% if(categoryId>0){ %>
+	        	<h2 class="title"><%= categoryName %></h2>
+	        <%}if(sellerId>0){ %>
+		    	<h2 class="title"><%= sellerName %></h2>
+		    <%} %>
 		    <div class="search">
 		    	<span class="material-symbols-outlined"> search </span>
        			<input type="text" name="" id="find" placeholder="Search here...." onkeyup="search()">
@@ -78,16 +89,24 @@
 
         	//Fetching all products from database
 			String sql= null;
-			if(categoryId >= 0){
+			if(categoryId > 0){
 				sql = "SELECT * FROM product WHERE category_id="+categoryId+";";
-			}else{
-				sql = "SELECT * FROM product WHERE category_id="+sellerId+";";
+			}if(sellerId > 0){
+				sql = "SELECT * FROM product WHERE seller_id="+sellerId+";";
 			}
             ResultSet rs = conn.executeQuery(sql);
             while (rs.next()) {
 	            boolean isInCart = false;
 	            int productId = rs.getInt("product_id");
-	
+				int product_catId = rs.getInt("category_id");
+				String catName = null;
+				//get category name where product.category id= category.categoryId
+				String sqlGetCatName = "SELECT category_name FROM category WHERE category_id="+product_catId;
+				ResultSet rsGetCatName=conn.executeQuery(sqlGetCatName);
+				while(rsGetCatName.next()){
+					catName=rsGetCatName.getString("category_name");
+				}
+						
 	            // Check if the product is in the cart
 	            for (int id : updatedProductIdsList) {
 	                if (productId == id) {
@@ -95,7 +114,7 @@
 	                    break;
 	                }
 	            }
-	            String imgSrc= categoryName +"/"+rs.getString("product_image");
+	            String imgSrc= catName +"/"+rs.getString("product_image");
                 %>
 			<div
 				onclick="redirectToProductView('<%= productId%>', '<%= isInCart%>', '<%=imgSrc %>')"
