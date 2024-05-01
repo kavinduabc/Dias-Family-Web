@@ -5,20 +5,25 @@
  */
 package Daisfamily;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author User
  */
+@MultipartConfig
 @WebServlet(name = "ProductServlet", urlPatterns = {"/ProductServlet"})
 public class ProductServlet extends HttpServlet {
 
@@ -64,17 +69,25 @@ public class ProductServlet extends HttpServlet {
     
     
     // Action "insert" ==>
-    private void insertProduct(HttpServletRequest request, HttpServletResponse response) throws IOException
+    private void insertProduct(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
     {
        //Getting parameters from the form 
       String productName = request.getParameter("productName");
       float productPrice =Float.parseFloat(request.getParameter("productPrice"));
-      String productImage = request.getParameter("productImage");
+      Part file = request.getPart("productImage");
       int categoryID = Integer.parseInt(request.getParameter("categoryID"));
       int sellerID = Integer.parseInt(request.getParameter("sellerID"));
       
+      String imageFileName = file.getSubmittedFileName();
+      String uploadPath = request.getServletContext().getRealPath("/")+ "images" + imageFileName;
+      FileOutputStream fos = new FileOutputStream(uploadPath);
+      InputStream inputImg = file.getInputStream();
+      byte [] data = new byte[inputImg.available()];
+      inputImg.read(data);
+      fos.write(data);
+      
       // create new  Product object ==> calling method
-      Product product = new Product(productName,  productPrice, productImage, categoryID, sellerID);
+      Product product = new Product(productName,  productPrice, imageFileName, categoryID, sellerID);
       productDAO.insertProduct(product);
       response.sendRedirect("list");
     }
@@ -91,15 +104,23 @@ public class ProductServlet extends HttpServlet {
         
     //update product    
 	private void updateProduct(HttpServletRequest request, HttpServletResponse response) 
-			throws SQLException, IOException {
+			throws SQLException, IOException, ServletException {
 		int productID = Integer.parseInt(request.getParameter("productID"));
                 String productName = request.getParameter("productName");
                 float productPrice = Float.parseFloat(request.getParameter("productPrice"));
-                String productImage = request.getParameter("productImage");
+                Part file = request.getPart("productImage");
                 int categoryID =Integer.parseInt(request.getParameter("categoryID"));
                 int sellerID = Integer.parseInt(request.getParameter("sellerID"));
 
-		Product product = new Product(productID,productName, productPrice, productImage, categoryID,  sellerID);
+                String imageFileName = file.getSubmittedFileName();
+                String uploadPath = request.getServletContext().getRealPath("/")+ "images" + imageFileName;
+                FileOutputStream fos = new FileOutputStream(uploadPath);
+                InputStream inputImg = file.getInputStream();
+                byte [] data = new byte[inputImg.available()];
+                inputImg.read(data);
+                fos.write(data);                
+
+		Product product = new Product(productID,productName, productPrice, imageFileName, categoryID,  sellerID);
 		productDAO.updateProduct(product);
 		response.sendRedirect("list");
 	}
