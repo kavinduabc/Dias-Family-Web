@@ -98,7 +98,7 @@ public class ProductServlet extends HttpServlet {
         {
 		List<Product> listProduct = productDAO.selectAllProducts();
 		request.setAttribute("listProducts", listProduct);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("Product_Management.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("Admin_ProductManagement.jsp");
 		dispatcher.forward(request, response);
 	}
         
@@ -139,7 +139,7 @@ public class ProductServlet extends HttpServlet {
 			throws SQLException, ServletException, IOException {
 		int productID = Integer.parseInt(request.getParameter("productID"));
 		Product existingProduct = productDAO.selectProduct(productID);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("insertProducts.jsp");
 		request.setAttribute("product", existingProduct);
 		dispatcher.forward(request, response);
 
