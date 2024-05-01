@@ -15,7 +15,7 @@
     </head>
     <body>
         <header class="header">
-            <a href="#" class="logo">Uni Fresh</a>
+            <a href="#" class="logo">DaisFamily</a>
     
             <nav class="navbar">
                 <a href="#" class="active">Search</a>
