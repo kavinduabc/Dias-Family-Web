@@ -1,0 +1,58 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 27, 2024, 11:48:50 PM
+    Author     : Kavindu Piyumal
+*/
+
+body
+{
+    background-image:url('image/img.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+      
+}
+ input[type=text]
+  {
+       border: 2px solid purple;
+       border-radius: 4px; 
+       width: 500px;
+       height: 50px;
+  }
+  input[type=submit]
+  {
+        border: 2px solid yellow;
+        border-radius: 8px;
+        padding: 5px;
+        width: 300px;
+        background-color: purple;
+        color: white;
+  }
+  .tt
+  {
+   color: yellow;   
+  }
+  .a
+  {
+      color: whitesmoke;
+  }
+  .containar
+  {
+      width: 400px;
+      height: 300px;
+      display: block;
+      align-items: center;
+      margin-left: 30%;
+      margin-top: 5%;
+  }
+  .containar .title .form_details
+  {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      
+  }
