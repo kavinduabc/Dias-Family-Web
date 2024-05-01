@@ -41,7 +41,6 @@ public class deleteProduct extends HttpServlet {
         response.setContentType("text/html");
 
         int productId = Integer.parseInt(request.getParameter("productId"));
-        //String userId = request.getParameter("userId");
         int userId = Integer.parseInt(request.getParameter("userId"));
 
         // Retrieve the cart product IDs and quantities from the database
@@ -59,22 +58,12 @@ public class deleteProduct extends HttpServlet {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            response.getWriter().write("cannot retrieve product id and quantity");
             // Handle any exceptions that occur during database access
         }
 
         // Convert the updated product IDs and quantities from strings to arrays
         String[] updatedProductIds = updatedProductIdsString.split(",");
         String[] updatedQuantities = updatedQuantitiesString.split(",");
-
-        //display the values
-        for (int i = 0; i < updatedProductIds.length; i++) {
-            response.getWriter().write("updated product ids list" + i + ":" + updatedProductIds[i] + "<br>");
-        }
-
-        for (int i = 0; i < updatedQuantities.length; i++) {
-            response.getWriter().write("updated quantity ids list" + i + ":" + updatedQuantities[i] + "<br>");
-        }
 
         // Convert the updated product IDs and quantities from strings to ArrayLists
         ArrayList<String> updatedProductIdsList = new ArrayList<String>(Arrays.asList(updatedProductIds));
@@ -86,7 +75,6 @@ public class deleteProduct extends HttpServlet {
             String updatedProductId = updatedProductIds[i];
             if (!updatedProductId.isEmpty() && Integer.parseInt(updatedProductId) == productId) {
                 index = i;
-                response.getWriter().write("index: " + index + "<br>");
                 break;
             }
         }
@@ -104,10 +92,7 @@ public class deleteProduct extends HttpServlet {
         // Convert the updated product IDs and quantities back to strings
         String updatedProductIdsStringNew = String.join(",", updatedProductIds);
         String updatedQuantitiesStringNew = String.join(",", updatedQuantities);
-        //display the string values
-        response.getWriter().write("updatedProductIdsStringNew :" + updatedProductIdsStringNew + "<br>");
-        response.getWriter().write("updatedQuantitiesStringNew :" + updatedQuantitiesStringNew + "<br>");
-
+        
         // Update the cart in the database
         String updateCartQuery = "UPDATE cart_1 SET product_id = ?, quantity = ? where user_id= ?; ";
         PreparedStatement updateStatement = null;
@@ -120,7 +105,6 @@ public class deleteProduct extends HttpServlet {
             updateStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            response.getWriter().write("cannot update the product");
             // Handle any exceptions that occur during the database update
         } finally {
             if (updateStatement != null) {
@@ -133,7 +117,7 @@ public class deleteProduct extends HttpServlet {
         }
 
         // Redirect back to the cart page
-        response.sendRedirect("cart.jsp");
+        response.sendRedirect("Cart_Deliver.jsp");
 
     }
 }
