@@ -43,7 +43,7 @@
                              </ul>
                            </li>
                            <li class="nav-item">
-                             <a class="nav-link" href="#">Products</a>
+                             <a class="nav-link" href="<%=request.getContextPath()%>/list">Products</a>
                            </li>               
                          </ul>
                          <form class="d-flex" role="search">
@@ -62,8 +62,8 @@
                 <div class="card mb-3" style="max-width: 540px;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <div class="image-container">
-                               <img src="" alt="Preview Image">  
+                            <div class="image-container" id="preview">
+                                
                             </div>
                          </div>                        
 			<div class="card-body col-md-8">
@@ -114,7 +114,7 @@
                                 <fieldset class="form-group">
 					<label>Product Image</label> <input type="file"
 						value="<c:out value='${product.productImage}' />" class="form-control"
-						name="productImage" id="image" accept="image/png, image/jpg, image/jpeg" onchange="previewImage(this)">
+                                                name="productImage" accept="image/*" onchange="getImagePreview(event)">
                                 </fieldset>
 				<button type="submit" class="btn btn-success">Save</button>
 				</form>
@@ -125,19 +125,16 @@
             
         </main>
                                                 <script>
-                                                    function previewImage(input) {   
-                                                    var imageContainer = $(".image-container img")[0];
-                                                    var fileInput = input.files[0];
-
-                                                    if (fileInput) {
-                                                        var reader = new FileReader();
-
-                                                        reader.onload = function (e) {
-                                                            imageContainer.src = e.target.result;
-                                                        };
-                                                        reader.readAsDataURL(fileInput);
-                                                    }
-                                                }
+                                                     function getImagePreview(event)
+                                                     {
+                                                       var image = URL.createObjectURL(event.target.files[0]);
+                                                       var imagediv = document.getElementById('preview');
+                                                       var newimg = document.createElement('img');
+                                                      
+                                                       newimg.src = image;
+                                                       newimg.width = "120";
+                                                       imagediv.appendChild(newimg);
+                                                     }
                                                 </script>                                            
     </body>
 </html>
