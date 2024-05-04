@@ -1,0 +1,88 @@
+@charset "UTF-8";
+body{
+    font-family: 'Avenir';
+}
+.product-box {
+    width: fit-content;
+    box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.4);
+    border-width: 3px;
+    border-color: purple;
+    border-style: solid;
+    border-radius: 1.875rem 0;
+}
+.product-box:hover {
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4); /* Adjust shadow values as needed */
+}
+.product-image{
+    transition: transform 0.3s ease;
+    border-radius: 1.875rem 0;
+}
+.product-image:hover {
+    transform: scale(0.9);
+}
+.pname{
+    font-size: 22px;
+    font-weight: 600px;
+    margin-top: 40px;
+}
+.price{
+    font-size: 20px;
+    font-weight: 400px;
+    margin: 15px 0;
+}
+.quantity{
+    display: flex;
+}
+.quantity p{
+    font-size: 18px;
+    font-weight: 500px;
+}
+.quantity input{
+    font-size: 17px;
+    height: fit-content;
+    width: 50px;
+    font-weight: 500px;
+    margin-left: 15px;
+    text-align: center;
+}
+.btn-box{
+    display: flex;
+    margin: 30px 0;
+}
+.btn-box button{
+    font-size: 18px;
+    padding: 8px 25px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white;
+}
+.cart-btn{
+    background-color: #ff5e00;
+    margin-right: 10px;
+    border-radius: 1.875rem 0;
+    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2);
+}
+.cart-btn:hover{
+    background-color: #ff3c00;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}
+.added-cart-btn{
+    background-color: #008040;
+    margin-right: 10px;
+    border-radius: 1.875rem 0;
+    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2);
+}
+.added-cart-btn:hover{
+    background-color: #008000;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}
+.buy-btn{
+    background-color: #00aeff;
+    border-radius: 1.875rem 0;
+    box-shadow: 0px 8px 8px 0px rgba(0, 0, 0, 0.2);
+}
+.buy-btn:hover{
+    background-color: #0066ff;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}

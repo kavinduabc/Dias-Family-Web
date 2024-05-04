@@ -1,71 +1,131 @@
-/*
-    Author     : Kavindu Piyumal
-*/
-@media (max-width: 800px) {
-    .row {
-        flex-direction: column-reverse;
-    }
-    .col-25 {
-        margin-bottom: 20px;
-    }
+body {
+  font-family: Arial, sans-serif;
+  margin-top: 50px; /* Add margin at the top */
 }
-.container{
-    margin-top: 25px;
-    margin-bottom: 25px;
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.cart-details {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.heading-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 #heading {
-    /* Cart heading */
-    text-align: center;
-
-    padding: 10px;
-    border-radius: 10px;
-    opacity: 0.7;
+  font-size: 24px;
+  margin: 0;
 }
 
-
-#cart-table-content {
-    margin-top: 50px;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
+.table {
+  width: 100%;
+  border-collapse: separate; /* Improve table layout */
+  border-spacing: 0 10px;
 }
 
-
-table {
-    font-family: Arial, sans-serif;
-    border-collapse: separate;
-    border-spacing: 0;
+.table th,
+.table td {
+  vertical-align: middle;
+  text-align: center;
+  border-top: 1px solid #ddd;
+  padding: 15px;
+  font-size: 16px; /* Increase font size */
 }
 
-tr {
-    height: 45px;
-    margin-bottom: 70px;
+.table th {
+  font-weight: normal;
+  background-color: black;
+  color: white;
 }
 
-.img-thumbnail {
-    width: 100px;
-    height: 100px;
+.table tbody tr:nth-child(even) {
+  background-color: #f5f5f5;
 }
 
-.ml-2 {
-    font-size: 18px;
-    margin-left: 20px;
-    font-weight: bold; /* Add bold font weight to the item name */
+.table td:nth-child(1) {
+  text-align: left;
 }
 
-small {
-    font-size: 14px;
+.table td:nth-child(2),
+.table td:nth-child(4) {
+  font-weight: bold;
 }
 
-th {
-    vertical-align: top;
-    /*text-align: center;*/
-    background-color: black;
-    color: yellow;
-    padding: 10px;
+.form-inline {
+  display: inline-flex;
+  align-items: center;
 }
 
-.table tbody td{
-    vertical-align: middle;
+.btn-incre,
+.btn-decre {
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.btn-incre i,
+.btn-decre i {
+  font-size: 14px;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  margin-top: 30px;
+}
+
+.btn-primary {
+  padding: 10px 20px;
+  font-size: 18px;
+}
+
+/* Hover effect for table rows */
+.table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Delete button confirmation dialog */
+.delete-button {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  color: red;
+}
+
+.delete-confirmation {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+
+.img-responsive {
+  width: 100%;
+  height: auto;
+}
+.cart-icon {
+  font-size: 24px;
+  margin-right: 10px;
+  vertical-align: middle;
 }
