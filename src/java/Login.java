@@ -40,25 +40,25 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       response.setContentType("text/html; charset=UTF-8");
+        response.setContentType("text/html");
         
-        // Get parameters from the request
+      
         String email = request.getParameter("email");
-        String pass = request.getParameter("password");  // Make sure to use the correct parameter name as defined in your HTML
+        String pass = request.getParameter("password");  
         
-        // Simple validation (In real scenarios, you should validate against database records)
+        // Simple validation 
         String correctEmail = "user@example.com";
         String correctPassword = "1234";
 
         if (email.equals(correctEmail) && pass.equals(correctPassword)) {
-            // Authentication successful
+            
             HttpSession session = request.getSession();
             session.setAttribute("user", email);
             
-            // Redirect to a success page
+            
             response.sendRedirect("manepage.jsp");
         } else {
-            // Authentication failed
+            
             request.setAttribute("errorMessage", "Invalid email or password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
