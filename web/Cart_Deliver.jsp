@@ -33,7 +33,7 @@
 
 
             <%                            //retrieve user id frim the session
-                int userId = 3;
+                int userId = 1;
                 double totalPrice = 0.0;
                 double totalQuantity = 0.0;
 
@@ -44,7 +44,8 @@
                 //create a list to add the subtotals
                 List<Double> subtotals = new ArrayList<Double>();
 
-                int length = cartlists.size();
+                int length1 = cartlists.size();
+                 int length = dao.displayCartLength(userId);
 
 
                 if (length == 0) {
@@ -87,7 +88,7 @@
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="images/<%= item.getImage()%>" alt="<%=item.getImage()%>" class="img-thumbnail" style="max-width: 100px;">
+                                        <img src="images/<%= item.getImage()%>" alt="<%= item.getImage()%>" class="img-thumbnail" style="max-width: 100px;">
                                         <div class="ml-2">
                                             <%= item.getName()%>
                                             <br>
