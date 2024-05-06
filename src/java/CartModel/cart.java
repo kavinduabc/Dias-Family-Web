@@ -10,6 +10,7 @@ public class cart //extends to the product class to get the accesss to the metho
     private String category;
     private double price;
     private String product_name;
+    private String product_image;
     
     public cart(int cart_id,int  user_id, double quantity, int product_id, String category, double price){
         this.quantity = quantity;
@@ -73,5 +74,12 @@ public class cart //extends to the product class to get the accesss to the metho
     public void setName(String product_name){
         this.product_name=product_name;
     
+}
+    public String getImage(){
+        return product_image;
+    }
+    
+    public void setImage(String product_image){
+        this.product_image = product_image;
 }
 }
