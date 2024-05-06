@@ -9,7 +9,7 @@
 <%@page import="cartServlets.*"%>
 <%@page import="java.sql.*"%>
 <%@page import="database_connection.dbCon"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,9 +18,7 @@
         <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
         <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css" rel="stylesheet">
-
 
         <!--customized CSS file-->
         <link rel='stylesheet' href='cart.css'>
@@ -28,12 +26,14 @@
         </style>
     </head>
     <body>
+        <%@include file="header.jsp" %>
 
         <div class="container">
 
-            <%  //retrieve user id frim the session
 
-                int userId = 2;
+
+            <%                            //retrieve user id frim the session
+                int userId = 1;
                 double totalPrice = 0.0;
                 double totalQuantity = 0.0;
 
@@ -44,7 +44,8 @@
                 //create a list to add the subtotals
                 List<Double> subtotals = new ArrayList<Double>();
 
-                int length = cartlists.size();
+                int length1 = cartlists.size();
+                 int length = dao.displayCartLength(userId);
 
 
                 if (length == 0) {
@@ -103,12 +104,13 @@
 
                                             <input type="hidden" name="userId" value="<%= userId%>">
                                             <!--<input type="hidden" name="operation" value="">-->
-                                            <button type="submit" name="operation" value="+" class="btn btn-sm btn-incre">
-                                                <i class="fas fa-plus-square"></i>
-                                            </button>
-                                            <input type="text" name="quantity" class="form-control" style="width: 80px;" value="<%= item.getQuantity()%>" >
+                                            
                                             <button type="submit" name="operation" value="-" class="btn btn-sm btn-decre">
                                                 <i class="fas fa-minus-square"></i>
+                                            </button>
+                                            <input type="text" name="quantity" class="form-control" style="width: 80px;" value="<%= item.getQuantity()%>" >
+                                            <button type="submit" name="operation" value="+" class="btn btn-sm btn-incre">
+                                                <i class="fas fa-plus-square"></i>
                                             </button>
                                         </div>
                                     </form>
@@ -130,27 +132,16 @@
                         </tbody>
                     </table>
 
-
                 </div>
             </div>
-            <div class="right-side" >
-
-                <h3>
-                    total price : <%= String.format("%.2f", totalPrice)%>                               
-                </h3>
-
-                <h3>
-                    number of items : <%=length%>
-
-                </h3>
-
-                    <div class="d-flex justify-content-start">
-                        
-                    <!-- Button for checkout -->
-                  
-                        <button class="btn btn-primary" onclick="window.location.href='payment.jsp'">checkout</button>
-
-                    </div>
+            <div class="row" >
+	            <div class="col-md-9"></div>
+	            <div class="col-md-3">
+	                <h5>Total price : <%= String.format("%.2f", totalPrice)%></h5>
+					<h5>Number of items : <%=length%></h5>
+	                <div class="d-flex justify-content-start">
+						<button class="btn btn-primary checkout" onclick="window.location.href = 'payment.jsp'">checkout</button>
+					</div>
 
                 <%
                         // convert subtotals to a string
@@ -170,7 +161,8 @@
 
             </div>
         </div>
-
+        </div>
+<%@include file="footer.jsp" %>
         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.js'>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>

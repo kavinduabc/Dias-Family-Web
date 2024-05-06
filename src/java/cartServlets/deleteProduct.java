@@ -1,5 +1,6 @@
 package cartServlets;
 
+import CartModel.cartDAO;
 import database_connection.dbCon;
 import java.io.IOException;
 import java.sql.Connection;
@@ -26,6 +27,7 @@ public class deleteProduct extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     ResultSet resultSet;
+    cartDAO dao = new cartDAO(dbCon.connectToDB());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,88 +38,18 @@ public class deleteProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        Connection connection = dbCon.connectToDB();
         response.setContentType("text/html");
 
         int productId = Integer.parseInt(request.getParameter("productId"));
+        //String userId = request.getParameter("userId");
         int userId = Integer.parseInt(request.getParameter("userId"));
+        double quantity = Double.parseDouble(request.getParameter("quantity"));
 
-        // Retrieve the cart product IDs and quantities from the database
-        String updatedProductIdsString = "";
-        String updatedQuantitiesString = "";
-
-        try {
-            String cartProductsQuery = "SELECT product_id, quantity FROM cart_1 where user_id= ?";
-            PreparedStatement statement = connection.prepareStatement(cartProductsQuery);
-            statement.setInt(1, userId);
-            resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                updatedProductIdsString = resultSet.getString("product_id");
-                updatedQuantitiesString = resultSet.getString("quantity");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle any exceptions that occur during database access
-        }
-
-        // Convert the updated product IDs and quantities from strings to arrays
-        String[] updatedProductIds = updatedProductIdsString.split(",");
-        String[] updatedQuantities = updatedQuantitiesString.split(",");
-
-        // Convert the updated product IDs and quantities from strings to ArrayLists
-        ArrayList<String> updatedProductIdsList = new ArrayList<String>(Arrays.asList(updatedProductIds));
-        ArrayList<String> updatedQuantitiesList = new ArrayList<String>(Arrays.asList(updatedQuantities));
-
-        // Find the index of the product in the cart
-        int index = -1;
-        for (int i = 0; i < updatedProductIds.length; i++) {
-            String updatedProductId = updatedProductIds[i];
-            if (!updatedProductId.isEmpty() && Integer.parseInt(updatedProductId) == productId) {
-                index = i;
-                break;
-            }
-        }
-
-        if (index >= 0) {
-            // Remove the element at the specified index
-            updatedProductIdsList.remove(index);
-            updatedQuantitiesList.remove(index);
-        }
-
-        // Convert the updated product IDs and quantities back to arrays
-        updatedProductIds = updatedProductIdsList.toArray(new String[0]);
-        updatedQuantities = updatedQuantitiesList.toArray(new String[0]);
-
-        // Convert the updated product IDs and quantities back to strings
-        String updatedProductIdsStringNew = String.join(",", updatedProductIds);
-        String updatedQuantitiesStringNew = String.join(",", updatedQuantities);
-        
-        // Update the cart in the database
-        String updateCartQuery = "UPDATE cart_1 SET product_id = ?, quantity = ? where user_id= ?; ";
-        PreparedStatement updateStatement = null;
-
-        try {
-            updateStatement = connection.prepareStatement(updateCartQuery);
-            updateStatement.setString(1, updatedProductIdsStringNew);
-            updateStatement.setString(2, updatedQuantitiesStringNew);
-            updateStatement.setInt(3, userId);
-            updateStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle any exceptions that occur during the database update
-        } finally {
-            if (updateStatement != null) {
-                try {
-                    updateStatement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        // Delete the product from the cart
+        dao.deleteProduct(userId, productId,quantity);
 
         // Redirect back to the cart page
-        response.sendRedirect("Cart_Deliver.jsp");
+        response.sendRedirect("cart.jsp");
 
     }
 }
