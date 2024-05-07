@@ -3,7 +3,7 @@
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="productPackage.dbCon"%>
+<%@page import="databaseConn.dbCon"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.io.*"%>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -13,11 +13,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="product.css">
+<link rel="stylesheet" href="css/product.css">
 
 <title>Products</title>
 </head>
+<jsp:include page="header.jsp" />
 <body>
+	<br><br><br><br>
 	<%
             dbCon conn = null;
             try {
@@ -26,7 +28,24 @@
                 conn.connect();
 				
                 
-                int userId = 3;
+             // Retrieve the "userId" attribute from the session
+        		Object userIdObj = session.getAttribute("userId");
+
+        		// Default value in case the attribute is not set or is not an integer
+        		int userId = 0;
+
+        		if (userIdObj != null) {
+        		    try {
+        		        // Convert the retrieved object to an integer
+        		        userId = Integer.parseInt(userIdObj.toString());
+        		    } catch (NumberFormatException e) {
+        		        // Handle the exception if the conversion to an integer fails
+        		        out.println("Error: Could not convert 'userId' to an integer.");
+        		        e.printStackTrace();
+        		    }
+        		} else {
+        		    out.println("Error: 'userId' session attribute is not set.");
+        		}
             	int categoryId = Integer.parseInt(request.getParameter("categoryId"));
             	int sellerId=Integer.parseInt(request.getParameter("sellerId"));
             	
@@ -126,6 +145,8 @@
 				</h4>
 				<form action="addCart" method="post">
 					<div class="card-footer">
+						<input type="hidden" name="sellerId" value="<%=sellerId%>">
+    					<input type="hidden" name="categoryId" value="<%=categoryId%>">
 						<input type="hidden" name="userId" value="<%= userId%>" /> <input
 							type="hidden" name="productId"
 							value="<%= rs.getInt("product_id")%>"> <input
@@ -173,5 +194,7 @@
                     conn.close();
                 }
        }%>
+       <br><br><br>
 </body>
+<jsp:include page="footer.jsp" />
 </html>
