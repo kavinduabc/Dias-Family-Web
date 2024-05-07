@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ page import="java.io.*, java.util.*, java.sql.*" %>
+	<%@ page import = "databaseConn.databaseConn"  %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,11 +11,13 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="productView.css">
+    <link rel="stylesheet" href="css/productView.css">
+    
 </head>
+<jsp:include page="header.jsp" />
 <body>
-	<%@ page import="java.io.*, java.util.*, java.sql.*" %>
-	<%@ page import = "productPackage.databaseConn"  %>
+	<br><br><br><br>
+	
 	
     <div class="container pt-6">
         <div class="row">
@@ -43,7 +47,7 @@
                 <div class="price">Price : <%= String.format("%.2f", rs.getDouble("product_price")) %>/=</div>
                 <div class="quantity">
                     <p>Quantity : </p>
-                    <input type="number" min="1" value="1">
+                    <input type="number" min="1" value="<%= String.format("%.2f", rs.getDouble("available_qty")) %>">
                 </div>
                 <div class="btn-box ">
                     <%if(!isInCart){ %>
@@ -57,6 +61,8 @@
             <%} %>
         </div>
     </div>
+    <br><br><br>
 <% conn.close(); %>
 </body>
+<jsp:include page="footer.jsp" />
 </html>
