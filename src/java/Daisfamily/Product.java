@@ -17,22 +17,25 @@ public class Product {
     private String productImage;
     private int categoryID;
     private int sellerID;
+    private double qty;
 
-    public Product(int productID, String productName, float productPrice, String productImage, int categoryID, int sellerID) {
+    public Product(int productID, String productName, float productPrice, String productImage, int categoryID, int sellerID, double qty) {
         this.productID = productID;
         this.productName = productName;
         this.productPrice = productPrice;
         this.productImage = productImage;
         this.categoryID = categoryID;
         this.sellerID = sellerID;
+        this.qty = qty;
     }
 
-    public Product(String productName, float productPrice, String productImage, int categoryID, int sellerID) {
+    public Product(String productName, float productPrice, String productImage, int categoryID, int sellerID,double qty) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.productImage = productImage;
         this.categoryID = categoryID;
         this.sellerID = sellerID;
+        this.qty = qty;
     }
 
     public int getProductID() {
@@ -83,7 +86,14 @@ public class Product {
         this.sellerID = sellerID;
     }
 
-
+    public double getQty()
+    {
+        return qty;
+    }
+    public void setQty(double qty)
+    {
+        this.qty = qty;
+    }
     
     
 }
