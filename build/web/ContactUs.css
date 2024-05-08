@@ -78,7 +78,8 @@ body{
   font-weight: 500;
 }
 .content .left-side .details .text-one,
-.content .left-side .details .text-two{
+.content .left-side .details .text-two
+{
   font-size: 14px;
   color: #afafb6;
 }

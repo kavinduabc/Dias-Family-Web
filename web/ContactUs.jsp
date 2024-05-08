@@ -72,7 +72,8 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function()
+    {
         var messageSent = <%=request.getAttribute("messageSent")%>; 
         
         if (messageSent) {

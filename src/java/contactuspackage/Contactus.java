@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor
+ * and open the template in the editor.
  */
 package contactuspackage;
 
@@ -34,7 +34,7 @@ public class Contactus {
     }
     void insertinfo(String message,String subject) {
     connectToDB(); // Call connectToDB method to establish a database connection
-    String query = "INSERT INTO reviews VALUES('" + message + "','" + subject + "')"; // Construct SQL query
+    String query = "INSERT INTO review VALUES('" + message + "','" + subject + "')"; // Construct SQL query
     try {
         st.executeUpdate(query); // Execute SQL query
         System.out.println("Record inserted");

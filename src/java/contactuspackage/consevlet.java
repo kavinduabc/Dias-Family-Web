@@ -82,14 +82,14 @@ public class consevlet extends HttpServlet {
         Contactus c = new Contactus();
         c.insertinfo( message,subject); 
         //processRequest(request, response);
-        // Set a flag to indicate that the message has been sent successfully
+        // Set a flag to indicate that the message has been sent successfully.
         request.setAttribute("messageSent", true);
 
         // Forward the request to the contact us page
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        request.getRequestDispatcher("ContactUs.jsp").forward(request, response);
         }
         else {
-             //User is not logged in, redirect to the login page
+             //User is not logged in, redirect to the login page.
             response.sendRedirect("login.jsp");
         }
     }
