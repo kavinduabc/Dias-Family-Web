@@ -1,9 +1,13 @@
 <%-- 
     Document   : userlist
-    Created on : May 5, 2024, 1:03:32 PM
+    Created on : May 6, 2024, 1:03:32 PM
     Author     : CHAMOD
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="com.xadmin.model.User"%>
+<%@page import="com.xadmin.dao.UserDAO"%>
+<%@page import="com.xadmin.util.DatabaseUtil"%>
 <%@ page import="java.sql.SQLException" %>
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.ResultSet" %>
@@ -57,7 +61,7 @@
             <thead class="thead-dark">
                 <tr>
                     <th>User ID</th>
-                    <th>Username</th>
+                    <th>Name</th>
                     <th>Phone No</th>
                     <th>Address</th>
                     <th>Email</th>
@@ -67,66 +71,33 @@
                 </tr>
             </thead>
 
-            <%
-                String url = "jdbc:mysql://localhost:3306/dias-family";
-                String username = "root";
-                String password = "";
-
-                Connection conn = null;
-                Statement stmt = null;
-                ResultSet rs = null;
-
-                try {
-                    Class.forName("com.mysql.jdbc.Driver");
-                    conn = DriverManager.getConnection(url, username, password);
-                    stmt = conn.createStatement();
-                    String sql = "SELECT * FROM user";
-                    rs = stmt.executeQuery(sql);
-
-                    while (rs.next()) {
-                        int id = rs.getInt("user_id");
-                        String usernameVal = rs.getString("username");
-                        String phoneNumber = rs.getString("phone_number");
-                        String address = rs.getString("address");
-                        String email = rs.getString("email");
-                        String userType = rs.getString("user_type");
-
+            <% 
+            UserDAO dao= new UserDAO(DatabaseUtil.getConnection());
+            List<User> users = dao.selectUser();
+            
+                for(User user:users){
             %>
-            <tr>
-                <td><%= id %></td>
-                <td><%= usernameVal %></td>
-                <td><%= phoneNumber %></td>
-                <td><%= address %></td>
-                <td><%= email %></td>
-                <td><%= userType %></td>
+          <tr>
+                <td><%= user.getId() %></td>
+                <td><%= user.getName() %></td>
+                <td><%= user.getPhone() %></td>
+                <td><%= user.getAddress() %></td>
+                <td><%= user.getEmail() %></td>
+                <td><%= user.getUserType()%></td>
                <td>
         <div class="btn-group">
-          <a href="editUser.jsp?id=<%= id %>" class="btn btn-primary edit-button">Edit</a>
-          <a href="deleteUser.jsp?id=<%= id %>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+          <a href="editUser.jsp?id=<%= user.getId() %>" class="btn btn-primary edit-button">Edit</a>
+          <a href="deleteUser.jsp?id=<%= user.getId() %>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
         </div>
       </td>
             </tr>
+
             <%
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    try {
-                        if (rs != null) {
-                            rs.close();
-                        }
-                        if (stmt != null) {
-                            stmt.close();
-                        }
-                        if (conn != null) {
-                            conn.close();
-                        }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
             %>
         </table>
     </div>
 </body>
 </html>
+
+
