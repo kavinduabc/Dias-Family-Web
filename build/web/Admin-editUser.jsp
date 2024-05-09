@@ -65,7 +65,7 @@
 <body class="container-fluid mt-5">
 	<br>
 	<center>
-		<h2 class="text-dark font-weight-bold">New User</h2>
+		<h2 class="text-dark font-weight-bold">Edit User</h2>
 	</center>
 	<br>
 	<div class="container text-right">
@@ -75,26 +75,36 @@
 	<div class="container">
 		<div class="card">
 			<div class="card-body">
+                            
+                            <!-- Go to the UpdateUserServlet  after the click save button.  -->
 				<form action="UpdateUserServlet" method="post">
-<%
-  // Retrieve the id parameter from the request
-  String id = request.getParameter("id");
-%>
-<input type="hidden" name="user_id" value="<%=id%>">
-                                       
+                                    
+                                    <!--  Expression tag for Retrieve the id parameter from the request -->
+                                        <%
+                                          
+                                          String id = request.getParameter("id");
+                                        %>
+                                                <!--  Hidden Input get the  User id-->
+                                                <input type="hidden" name="user_id" value="<%=id%>">
+                                                
+                                       <!--  Radio Button for Selecting User type between the ADMIN or USER -->
                                         <fieldset class="form-group">
+                                            
                                            <label class="spaced-label">USERTYPE</label>
                                             <div class="form-check form-check-inline text-center">
                                                 <input type="radio" class="form-check-input" name="user_type" value="ADMIN" required>
                                                 <label class="form-check-label user-type-label spaced-label">ADMIN</label>
                                             </div>
+                                         
                                             <div class="form-check form-check-inline text-center">
                                                 <input type="radio" class="form-check-input" name="user_type" value="USER" required>
                                                 <label class="form-check-label user-type-label spaced-label">USER</label>
                                             </div>
+                                           
                                             <div class="invalid-feedback">Please select a user type.</div>
                                         </fieldset>
-
+                                       
+                                       <!-- Button For the submit and rest the selection -->
 					<button type="submit" class="btn btn-success ">SAVE</button>
 					<button type="reset" class="btn btn-warning ">CLEAR</button>
                                         
@@ -102,7 +112,7 @@
 			</div>
 		</div>
         </div>
-
+       
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> 
 </body>
 </html>
