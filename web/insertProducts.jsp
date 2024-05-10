@@ -13,13 +13,6 @@
         <title>product-form</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
  <style>
-      @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700&display=swap');
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-          font-family: 'Fira Sans', sans-serif;
-        }  
 
         .card {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
@@ -39,7 +32,9 @@
     </style>        
     </head>
     <body>
-       
+        <br>
+        <br>
+        <%@include file="header.jsp" %>
         <main>
             <div class="container col-md-5 pt-5">
                 <div class="card mb-3" style="max-width: 800px;"  id="form-wrapper">
