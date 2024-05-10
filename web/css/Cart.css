@@ -1,10 +1,128 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Apr 27, 2024, 7:04:55 PM
-    Author     : Kavindu Piyumal
-*/
+body {
+  font-family: Arial, sans-serif;
+  margin-top: 50px; /* Add margin at the top */
+}
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.cart-details {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.heading-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+.table {
+  width: 100%;
+  border-collapse: separate; /* Improve table layout */
+  border-spacing: 0 10px;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  text-align: center;
+  border-top: 1px solid #ddd;
+  padding: 15px;
+  font-size: 16px; /* Increase font size */
+}
+
+.table th {
+  font-weight: normal;
+  background-color: black;
+  color: white;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.table td:nth-child(1) {
+  text-align: left;
+}
+
+.table td:nth-child(2),
+.table td:nth-child(4) {
+  font-weight: bold;
+}
+
+.form-inline {
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-incre,
+.btn-decre {
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
+.btn-incre i,
+.btn-decre i {
+  font-size: 14px;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  margin-top: 30px;
+}
+
+.btn-primary {
+  padding: 10px 20px;
+  font-size: 18px;
+}
+
+/* Hover effect for table rows */
+.table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Delete button confirmation dialog */
+.delete-button {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  color: red;
+}
+
+.delete-confirmation {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+
+.img-responsive {
+  width: 100%;
+  height: auto;
+}
+.cart-icon {
+  font-size: 24px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
