@@ -21,7 +21,8 @@ import java.util.List;
 public class ProductDAO {
     
     //mySQL conection variables
-    private final String jdbcUrl = "jdbc:mysql://localhost:3306/dias?useSSL=false";  //add database name 
+
+    private final String jdbcUrl = "jdbc:mysql://localhost:3306/?useSSL=false";  //add database name 
     private final String jdbcUserName ="root";
     private final String jdbcPassword ="";
     
@@ -32,6 +33,7 @@ public class ProductDAO {
     private static final String SELECT_ALL_PRODUCTS = "select * from product";
     private static final String DELETE_PRODUCT = "delete from product where product_id =?";
     private static final String UPDATE_PRODUCT = "update product set product_name =?,product_price =?,product_image =?,category_id =?,seller_id =?,available_qty=? where product_id =?";
+
 
     
     public ProductDAO(){}

@@ -8,6 +8,7 @@ package Daisfamily;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -81,6 +82,7 @@ public class ProductServlet extends HttpServlet {
       
       
       String imageFileName = file.getSubmittedFileName();
+
       String uploadPath = request.getServletContext().getRealPath("/") + "images/" + "products/" + imageFileName;
 
       

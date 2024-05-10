@@ -32,9 +32,11 @@
     </style>        
     </head>
     <body>
+
         <br>
         <br>
         <%@include file="header.jsp" %>
+
         <main>
             <div class="container col-md-5 pt-5">
                 <div class="card mb-3" style="max-width: 800px;"  id="form-wrapper">
