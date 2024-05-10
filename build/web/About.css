@@ -7,4 +7,66 @@ and open the template in the editor.
     Created on : Apr 27, 2024, 6:52:34 PM
     Author     : Kavindu Piyumal
 */
+.section-title {
+      text-align: center;
+      color: #9c27b0;
+      margin-bottom: 30px;
+      font-family: 'Times New Roman', Times, serif;
+      font-weight:bold;
+      font-size: 50px;
+    }
+    
+    .employee-card {
+      border: none;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s, background-color 0.3s;
+      background: linear-gradient(to bottom right, #9c27b0, #7b1fa2);
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+      margin-bottom: 30px;
+      background: #ffffff;
+    }
+    
+    .employee-card:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to bottom right, #7b1fa2, #9c27b0);
+    }
+    
+    .employee-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #fff;
+      margin-bottom: 15px;
+    }
+    
+    .employee-card h3 {
+      color:#555;
+      font-size: 1.5em;
+    }
+    
+    .employee-card p {
+      color: #ddd;
+    }
+    
+    .about-text {
+      color: #555;
+      line-height: 1.6;
+      text-align: justify;
+      margin-bottom: 30px;
+      
+    }
+    
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
 
