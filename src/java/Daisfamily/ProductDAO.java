@@ -21,13 +21,13 @@ import java.util.List;
 public class ProductDAO {
     
     //mySQL conection variables
-    private final String jdbcUrl = "jdbc:mysql://localhost:3306/dias?useSSL=false";  //add database name 
+    private final String jdbcUrl = "jdbc:mysql://localhost:3306/?useSSL=false";  //add database name 
     private final String jdbcUserName ="root";
-    private final String jdbcPassword ="Root@7532";
+    private final String jdbcPassword ="";
     
     //mySQL prepared statements ---> all operations
    
-    private static final String INSERT_PRODUCT ="INSERT INTO product"+"(product_name,product_price,product_image,category_id,seller_id,quantity)VALUES"+"(?, ?, ?, ?, ?,?);";
+    private static final String INSERT_PRODUCT ="INSERT INTO product"+"(product_name,product_price,product_image,category_id,seller_id,available_qty)VALUES"+"(?, ?, ?, ?, ?,?);";
     private static final String SELECT_PRODUCTS_BY_ID = "select product_id,product_name,product_price,product_image,category_id,seller_id,quantity from product where product_id =?";
     private static final String SELECT_ALL_PRODUCTS = "select * from product";
     private static final String DELETE_PRODUCT = "delete from product where product_id =?";
