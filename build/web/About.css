@@ -6,82 +6,67 @@ and open the template in the editor.
 /* 
     Created on : Apr 27, 2024, 6:52:34 PM
     Author     : Kavindu Piyumal
-*/body {
-    background-color: rgb(121, 88, 124);
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    color: #2a092e;
-}
-
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: rgb(252, 249, 249);
-}
-
-.crew-member {
-    background-color: #ffef96;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease-in-out;
-}
-
-.crew-member:hover {
-    transform: translateY(-5px);
-}
-
-h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #ff5e7d;
-}
-
-p {
-    font-size: 18px;
-    color: #333;
-}
-
-.unique-paragraph {
-    font-size: 5px;
-    text-align: center;
-    margin-bottom: 30px;
-    color:#2a092e;
-}
-
-.small-paragraph {
-    font-size: 16px;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #ffffff;
-    background-color: #4CAF50;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.contact-details {
-    text-align: center;
-    margin-top: 50px;
-}
-
-.contact-details h2 {
-    color: #ff5e7d;
-}
-
-.ul {
-    font-family: sans-serif;
-    color: blueviolet;
-}
-
+*/
+.section-title {
+      text-align: center;
+      color: #9c27b0;
+      margin-bottom: 30px;
+      font-family: 'Times New Roman', Times, serif;
+      font-weight:bold;
+      font-size: 50px;
+    }
+    
+    .employee-card {
+      border: none;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s, background-color 0.3s;
+      background: linear-gradient(to bottom right, #9c27b0, #7b1fa2);
+      border-radius: 15px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+      margin-bottom: 30px;
+      background: #ffffff;
+    }
+    
+    .employee-card:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to bottom right, #7b1fa2, #9c27b0);
+    }
+    
+    .employee-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #fff;
+      margin-bottom: 15px;
+    }
+    
+    .employee-card h3 {
+      color:#555;
+      font-size: 1.5em;
+    }
+    
+    .employee-card p {
+      color: #ddd;
+    }
+    
+    .about-text {
+      color: #555;
+      line-height: 1.6;
+      text-align: justify;
+      margin-bottom: 30px;
+      
+    }
+    
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
 
