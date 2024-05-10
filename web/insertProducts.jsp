@@ -20,31 +20,7 @@
           box-sizing: border-box;
           font-family: 'Fira Sans', sans-serif;
         }  
-        header .navbar {
-          height:60px;
-          background-color:#000;
-          color: #fff;
-        }
-        .navbar-nav .nav-link {
-            color: #fff; 
-        }
 
-        .navbar-nav .nav-link:hover {
-            color: #1dbf73; 
-        }
-        
-        .dropdown-menu
-        {
-          background:#242526;
-        }
-        .dropdown-item
-        {
-            color: #fff;
-        }
-        .dropdown-item:hover
-        {
-           color: #1dbf73; 
-        }
         .card {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
         margin: 5px;
@@ -63,50 +39,7 @@
     </style>        
     </head>
     <body>
-       <header>
-        
-        <div class="container mt-2">
-        <div class="row">    
-        <nav class="navbar navbar-expand-lg ">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                  </ul>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>                
-              </ul>
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
-            </div>
-          </div>
-        </nav>               
-        </div>
-        </div>
-    </header>   
-        
+       
         <main>
             <div class="container col-md-5 pt-5">
                 <div class="card mb-3" style="max-width: 800px;"  id="form-wrapper">
@@ -169,10 +102,6 @@
                                 <fieldset class="form-group">
                                 
                                     <label>Product Image</label>
-                                    <c:if test="${product.productImage != null}">
-                                        
-                                        
-                                    </c:if>
                                             <input type="file" class="form-control" name="productImage" value="images/<c:out value='${product.productImage}' />" accept="image/*" onchange="getImagePreview(event)">
                                 </fieldset>
 				<button type="submit" class="btn btn-success">Save</button>
@@ -194,6 +123,8 @@
                                                        newimg.width = "200";
                                                        imagediv.appendChild(newimg);
                                                      }
-                                                </script>                                            
+                                                </script> 
+                                                
+                                                
     </body>
 </html>
