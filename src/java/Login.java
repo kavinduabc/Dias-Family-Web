@@ -1,5 +1,3 @@
-package Mypackage;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -11,9 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
-public class RegisterServlet extends HttpServlet {
+public class Login extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,39 +40,27 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-        out.println("Servlet is running");
+       response.setContentType("text/html; charset=UTF-8");
+        
+        // Get parameters from the request
+        String email = request.getParameter("email");
+        String pass = request.getParameter("password");  // Make sure to use the correct parameter name as defined in your HTML
+        
+        // Simple validation (In real scenarios, you should validate against database records)
+        String correctEmail = "user@example.com";
+        String correctPassword = "1234";
 
-        String name = request.getParameter("uname");
-        String email = request.getParameter("uemail");
-        String address = request.getParameter("uaddress");
-        String pnumber = request.getParameter("upnumber");
-        String password = request.getParameter("upassword");
-        String conpassword = request.getParameter("uconpassword");
-
-        String url = "jdbc:mysql://localhost:3306/dias_family";
-        String sql = "INSERT INTO sign_in_sign_up (name, email, address, pnumber, password, conpassword) VALUES (?, ?, ?, ?, ?, ?)";
-
-        try (Connection con = DriverManager.getConnection(url, "root", "");
-             PreparedStatement statement = con.prepareStatement(sql)) {
-
-            statement.setString(1, name);
-            statement.setString(2, email);
-            statement.setString(3, address);
-            statement.setString(4, pnumber);
-            statement.setString(5, password);
-            statement.setString(6, conpassword);
-
-            int rowsInserted = statement.executeUpdate();
-
-            if (rowsInserted > 0) {
-                out.println("Registered successfully");
-            } else {
-                out.println("Registration failed");
-            }
-
-        } catch (SQLException ex) {
-            out.println("An error occurred during registration: " + ex.getMessage());
+        if (email.equals(correctEmail) && pass.equals(correctPassword)) {
+            // Authentication successful
+            HttpSession session = request.getSession();
+            session.setAttribute("user", email);
+            
+            // Redirect to a success page
+            response.sendRedirect("manepage.jsp");
+        } else {
+            // Authentication failed
+            request.setAttribute("errorMessage", "Invalid email or password");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
 
