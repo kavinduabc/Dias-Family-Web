@@ -45,6 +45,10 @@
 </head>
 <body class="container-fluid text-center mt-5">
 
+    <br>
+    <br>
+    <%@include file="header.jsp" %>
+
   
     <main>
         <%--<a href="<=%request.getContextPath()%>/list"></a>--%>
@@ -79,8 +83,10 @@
                                                </thead>
                                                <tbody>
 
+
                                                     <%
                                                         List<Product> listProducts = (List<Product>) request.getAttribute("listProducts");
+
 
                                                         for (Product product : listProducts) {
                                                     %>
@@ -89,7 +95,11 @@
                                                             <td><%= product.getProductName() %></td>
                                                             <td><%= product.getProductPrice() %></td>
                                                             <td><%= product.getQty() %></td>
-                                                            <td><img src="products/<%= product.getProductImage()%>" alt="<%= product.getProductImage() %>" width="50px" height="50px"></td>
+
+                                                            <td><img src="<%= request.getContextPath() %>/products/<%= product.getProductImage()%>" alt="<%= product.getProductImage() %>" width="50px" height="50px"></td>
+
+                                                        
+
                                                             <td><%= product.getCategoryID() %></td>
                                                             <td><%= product.getSellerID() %></td>
                                                             <td>
